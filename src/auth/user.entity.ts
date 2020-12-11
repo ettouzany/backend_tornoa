@@ -15,7 +15,34 @@ export class User extends BaseEntity{
     username: string;
 
     @Column()
+    first_name: string;
+    
+    @Column()
+    last_name: string;
+
+    @Column()
     password: string;
+
+    @Column()
+    email: string;
+
+    @Column()
+    time_zone: string;
+
+    @Column()
+    valid: boolean;
+
+    @Column()
+    country: string;
+
+    @Column()
+    organization: string;
+    
+    @Column()
+    position: string;
+
+    @Column()
+    role: string;
 
     @Column()
     salt: string;
@@ -28,6 +55,9 @@ export class User extends BaseEntity{
 
     @ManyToMany(type => Team, team=>team.players,{eager:false})
     teams: Team[];
+
+
+
 
     @ManyToMany(type => Tournament, tournament=> tournament.players, {eager: true})
     tournaments: Tournament[];

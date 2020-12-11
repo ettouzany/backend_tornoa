@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { EntitesModule } from './entites/entites.module';
 import { TournamentsModule } from './tournaments/tournaments.module';
 import { TeamsModule } from './teams/teams.module';
+import { PlatformsModule } from './platforms/platforms.module';
+import { CountriesModule } from './countries/countries.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { TeamsModule } from './teams/teams.module';
     EntitesModule,
     TournamentsModule,
     TeamsModule,
+    PlatformsModule,
+    CountriesModule,
     AuthModule],
 })
 export class AppModule {}

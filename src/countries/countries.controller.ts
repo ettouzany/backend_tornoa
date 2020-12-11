@@ -5,33 +5,33 @@ import { title } from 'process';
 import { GetUser } from 'src/auth/getUser.decoretor';
 import { User } from 'src/auth/user.entity';
 import { DeleteResult } from 'typeorm';
-import { Platform } from './platform.entity';
-import { PlatformsService } from './platforms.service';
-import { CreatePlatformDto } from './dto/create-platform.dto';
-import { GetPlatformsFillter } from './dto/get-platforms-fillter';
-import { PlatformCreateValidationPipe } from './dto/pipes/create-platform-validation-pipe';
-import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/file.interceptor';
+import { Country } from './country.entity';
+import { CountriesService } from './countries.service';
+import { CreateCountryDto } from './dto/create-country.dto';
+import { GetCountriesFillter } from './dto/get-countries-fillter';
+import { CountryCreateValidationPipe } from './dto/pipes/create-country-validation-pipe';
 import { extname } from 'path';
 import { diskStorage } from 'multer'
+import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/file.interceptor';
 
-@Controller('platforms')
+@Controller('countries')
 @UseGuards(AuthGuard())
-export class PlatformsController {
+export class CountriesController {
     constructor(
-        private platformsService: PlatformsService,
+        private countriesService: CountriesService,
     ){}
     
     @Get()
-    getPlatforms(
-        @Query(ValidationPipe) getPlatformsFillter:GetPlatformsFillter,
+    getCountries(
+        @Query(ValidationPipe) getCountriesFillter:GetCountriesFillter,
         @GetUser() user:User,
-        ) : Promise<Platform[]>{
-        return this.platformsService.getPlatforms(getPlatformsFillter,user);
+        ) : Promise<Country[]>{
+        return this.countriesService.getCountries(getCountriesFillter,user);
     }
 
     @Get(':id')
-    getPlatformByid(@Param('id',ParseIntPipe) id:number,@GetUser() user:User) : Promise<Platform>{
-        return this.platformsService.getPlatformById(id);
+    getCountryByid(@Param('id',ParseIntPipe) id:number,@GetUser() user:User) : Promise<Country>{
+        return this.countriesService.getCountryById(id);
     }
 
 
@@ -48,13 +48,13 @@ export class PlatformsController {
         })
       }))
     @UsePipes(ValidationPipe)
-    createPlatform(
-        @Body() createPlatformDto : CreatePlatformDto,
+    createCountry(
+        @Body() createCountryDto : CreateCountryDto,
         @GetUser() user:User,
         @UploadedFile() logo
-    ) : Promise<Platform>{
+    ) : Promise<Country>{
         console.log(logo);
-        return this.platformsService.createPlatform(createPlatformDto,logo, user);
+        return this.countriesService.createCountry(createCountryDto,logo, user);
     }
 
     @Put(':id')
@@ -70,17 +70,17 @@ export class PlatformsController {
         })
       }))
     @UsePipes(ValidationPipe)
-    UpdatePlatformById(
+    UpdateCountryById(
         @Param('id',ParseIntPipe) id:number,
-        @Body() createPlatformDto : CreatePlatformDto,
+        @Body() createCountryDto : CreateCountryDto,
         @GetUser() user:User,
         @UploadedFile() logo
-    ) : Promise<Platform>{
-            return this.platformsService.UpdatePlatformById(id,createPlatformDto,logo,user);
+    ) : Promise<Country>{
+                return this.countriesService.UpdateCountryById(id,createCountryDto,logo,user);
     }
 
     @Delete(':id')
-    deletePlatformById(@Param('id',ParseIntPipe) id:number,@GetUser() user:User) : Promise<number>{
-        return this.platformsService.deletePlatformById(id,user);
+    deleteCountryById(@Param('id',ParseIntPipe) id:number,@GetUser() user:User) : Promise<number>{
+        return this.countriesService.deleteCountryById(id,user);
     }
 }

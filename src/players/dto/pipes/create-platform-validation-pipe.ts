@@ -1,6 +1,6 @@
 import { BadRequestException, PipeTransform } from "@nestjs/common"
 
-export class EntiteCreateValidationPipe implements PipeTransform{
+export class PlatformCreateValidationPipe implements PipeTransform{
     transform(value:string){
         value.toLowerCase();
         if(value.length>10)
